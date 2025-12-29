@@ -52,6 +52,24 @@ http://localhost:5000
 
 ## Usage
 
+### Development Mode
+
+1. Click "Choose Image" or drag and drop an image onto the upload area
+2. Wait for the background to be removed automatically
+3. Download the transparent image using "Download Transparent" button
+
+### Production Deployment
+
+For production use, it's recommended to:
+
+1. Disable debug mode by setting `debug=False` in `app.py`, or
+2. Use a production WSGI server like gunicorn:
+
+```bash
+pip install gunicorn
+gunicorn -w 4 -b 0.0.0.0:5000 app:app
+```
+
 ### Basic Background Removal
 
 1. Click "Choose Image" or drag and drop an image onto the upload area

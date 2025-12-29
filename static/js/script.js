@@ -327,7 +327,9 @@ function downloadFinalImage() {
     const link = document.createElement('a');
     link.href = finalImage.src;
     link.download = 'final-image.png';
+    document.body.appendChild(link);
     link.click();
+    document.body.removeChild(link);
 }
 
 // Download transparent image
@@ -340,7 +342,9 @@ function downloadTransparentImage() {
     const link = document.createElement('a');
     link.href = processedImageData;
     link.download = 'transparent-background.png';
+    document.body.appendChild(link);
     link.click();
+    document.body.removeChild(link);
 }
 
 // Initialize on page load

@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_from_directory, render_template
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 from rembg import remove
 from PIL import Image
@@ -11,12 +11,6 @@ CORS(app)
 
 # Configuration
 MAX_FILE_SIZE = 10 * 1024 * 1024  # 10MB limit
-
-# Ensure upload and output directories exist
-UPLOAD_FOLDER = 'uploads'
-OUTPUT_FOLDER = 'outputs'
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 
 @app.route('/')
 def index():
@@ -134,5 +128,8 @@ def add_background():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    # Note: Set debug=False for production deployments
+    # WARNING: Debug mode is enabled for development convenience.
+    # For production deployments, set debug=False to prevent security risks.
+    # You can also use environment variables: FLASK_ENV=production
+    # Or use a production WSGI server like gunicorn: gunicorn app:app
     app.run(debug=True, host='0.0.0.0', port=5000)
