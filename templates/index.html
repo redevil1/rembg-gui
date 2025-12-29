@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rembg - Remove Background</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎨 Background Remover</h1>
+            <p>Remove and replace image backgrounds instantly</p>
+        </header>
+
+        <main>
+            <!-- Upload Section -->
+            <section class="upload-section" id="uploadSection">
+                <div class="upload-box" id="uploadBox">
+                    <div class="upload-icon">📁</div>
+                    <h2>Upload Image</h2>
+                    <p>Drag and drop an image or click to browse</p>
+                    <input type="file" id="fileInput" accept="image/*" hidden>
+                    <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()">
+                        Choose Image
+                    </button>
+                </div>
+            </section>
+
+            <!-- Processing Section -->
+            <section class="processing-section hidden" id="processingSection">
+                <div class="spinner"></div>
+                <p>Removing background...</p>
+            </section>
+
+            <!-- Result Section -->
+            <section class="result-section hidden" id="resultSection">
+                <div class="image-comparison">
+                    <div class="image-container">
+                        <h3>Original</h3>
+                        <div class="image-wrapper">
+                            <img id="originalImage" alt="Original">
+                        </div>
+                    </div>
+                    <div class="image-container">
+                        <h3>Background Removed</h3>
+                        <div class="image-wrapper checkered-bg">
+                            <img id="processedImage" alt="Processed">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Background Options -->
+                <div class="background-options">
+                    <h3>Add Background</h3>
+                    <div class="option-tabs">
+                        <button class="tab-btn active" data-tab="color">Solid Color</button>
+                        <button class="tab-btn" data-tab="image">Image</button>
+                    </div>
+
+                    <!-- Color Background Tab -->
+                    <div class="tab-content active" id="colorTab">
+                        <div class="color-picker-container">
+                            <label for="colorPicker">Choose Background Color:</label>
+                            <div class="color-input-wrapper">
+                                <input type="color" id="colorPicker" value="#ffffff">
+                                <span id="colorValue">#ffffff</span>
+                            </div>
+                            <div class="preset-colors">
+                                <button class="color-preset" data-color="#ffffff" style="background: #ffffff;" title="White"></button>
+                                <button class="color-preset" data-color="#000000" style="background: #000000;" title="Black"></button>
+                                <button class="color-preset" data-color="#ff0000" style="background: #ff0000;" title="Red"></button>
+                                <button class="color-preset" data-color="#00ff00" style="background: #00ff00;" title="Green"></button>
+                                <button class="color-preset" data-color="#0000ff" style="background: #0000ff;" title="Blue"></button>
+                                <button class="color-preset" data-color="#ffff00" style="background: #ffff00;" title="Yellow"></button>
+                                <button class="color-preset" data-color="#ff00ff" style="background: #ff00ff;" title="Magenta"></button>
+                                <button class="color-preset" data-color="#00ffff" style="background: #00ffff;" title="Cyan"></button>
+                            </div>
+                            <button class="btn btn-primary" id="applyColorBtn">Apply Color Background</button>
+                        </div>
+                    </div>
+
+                    <!-- Image Background Tab -->
+                    <div class="tab-content" id="imageTab">
+                        <div class="background-image-container">
+                            <input type="file" id="backgroundFileInput" accept="image/*" hidden>
+                            <button class="btn btn-secondary" onclick="document.getElementById('backgroundFileInput').click()">
+                                Choose Background Image
+                            </button>
+                            <div class="bg-image-preview hidden" id="bgImagePreview">
+                                <img id="bgPreviewImage" alt="Background Preview">
+                                <button class="btn btn-primary" id="applyImageBtn">Apply Image Background</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Final Result -->
+                <div class="final-result hidden" id="finalResult">
+                    <h3>Final Result</h3>
+                    <div class="image-wrapper">
+                        <img id="finalImage" alt="Final Result">
+                    </div>
+                    <button class="btn btn-success" id="downloadBtn">
+                        ⬇️ Download Image
+                    </button>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" id="newImageBtn">
+                        Upload New Image
+                    </button>
+                    <button class="btn btn-primary" id="downloadTransparentBtn">
+                        ⬇️ Download Transparent
+                    </button>
+                </div>
+            </section>
+
+            <!-- Error Section -->
+            <section class="error-section hidden" id="errorSection">
+                <div class="error-message">
+                    <span class="error-icon">⚠️</span>
+                    <p id="errorMessage"></p>
+                    <button class="btn btn-secondary" onclick="resetApp()">Try Again</button>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Powered by <a href="https://github.com/danielgatis/rembg" target="_blank">rembg</a></p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
