@@ -211,7 +211,7 @@ async function applyColorBackground() {
 async function applyImageBackground() {
     try {
         if (!backgroundImageData) {
-            alert('Please select a background image first');
+            showError('Please select a background image first');
             return;
         }
         
@@ -320,7 +320,7 @@ function resetApp() {
 // Download final image
 function downloadFinalImage() {
     if (!finalImage.src) {
-        alert('No final image to download');
+        showError('No final image to download. Please apply a background first.');
         return;
     }
     
@@ -333,7 +333,7 @@ function downloadFinalImage() {
 // Download transparent image
 function downloadTransparentImage() {
     if (!processedImageData) {
-        alert('No processed image to download');
+        showError('No processed image to download. Please upload and process an image first.');
         return;
     }
     
