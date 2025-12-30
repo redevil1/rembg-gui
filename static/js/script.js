@@ -36,6 +36,7 @@ const tabContents = document.querySelectorAll('.tab-content');
 const newImageBtn = document.getElementById('newImageBtn');
 const downloadBtn = document.getElementById('downloadBtn');
 const downloadTransparentBtn = document.getElementById('downloadTransparentBtn');
+const processingMessage = document.getElementById('processingMessage');
 
 // Initialize app
 function init() {
@@ -116,7 +117,7 @@ function handleDrop(event) {
 async function processImage(file) {
     try {
         // Show processing section
-        showSection('processing');
+        showSection('processing', 'Removing background...');
         
         // Read and store original image
         const reader = new FileReader();
@@ -173,7 +174,7 @@ async function applyColorBackground() {
     try {
         const color = colorPicker.value;
         
-        showSection('processing');
+        showSection('processing', 'Adding background...');
         
         const response = await fetch('/api/add-background', {
             method: 'POST',
@@ -215,7 +216,7 @@ async function applyImageBackground() {
             return;
         }
         
-        showSection('processing');
+        showSection('processing', 'Adding background...');
         
         const response = await fetch('/api/add-background', {
             method: 'POST',
@@ -277,7 +278,7 @@ function switchTab(tabName) {
 }
 
 // Show specific section
-function showSection(section) {
+function showSection(section, message = '') {
     uploadSection.classList.add('hidden');
     processingSection.classList.add('hidden');
     resultSection.classList.add('hidden');
@@ -288,6 +289,9 @@ function showSection(section) {
             uploadSection.classList.remove('hidden');
             break;
         case 'processing':
+            if (message) {
+                processingMessage.textContent = message;
+            }
             processingSection.classList.remove('hidden');
             break;
         case 'result':
