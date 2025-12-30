@@ -47,17 +47,31 @@ git clone https://github.com/redevil1/rembg-gui.git
 cd rembg-gui
 ```
 
-2. Install dependencies:
+2. Create and activate a virtual environment (recommended):
+
+**On Linux/macOS:**
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+**On Windows:**
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+3. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Run the application:
+4. Run the application:
 ```bash
 python app.py
 ```
 
-4. Open your browser and navigate to:
+5. Open your browser and navigate to:
 ```
 http://localhost:5000
 ```
