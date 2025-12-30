@@ -14,6 +14,18 @@ A beautiful and intuitive web-based GUI for the [rembg](https://github.com/danie
 
 ## Screenshots
 
+### Main Interface
+![Main Interface](assets/preview1.png)
+
+### Background Removal Process
+![Background Removal](assets/preview2.png)
+
+### Solid Color Background
+![Solid Color Background](assets/preview3.png)
+
+### Custom Image Background
+![Custom Image Background](assets/preview4.png)
+
 The application features:
 - Clean, modern interface inspired by remove.bg
 - Side-by-side comparison of original and processed images
