@@ -342,6 +342,11 @@ main {
     font-size: 1.5em;
 }
 
+.final-result .image-wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
 /* Action Buttons */
 .action-buttons {
     text-align: center;
