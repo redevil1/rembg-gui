@@ -5,6 +5,7 @@ A beautiful and intuitive web-based GUI for the [rembg](https://github.com/danie
 ## Features
 
 - 🎨 **Remove Background**: Instantly remove backgrounds from images using AI
+- ✂️ **Image Cropping**: Crop processed images with an intuitive canvas-based interface
 - 🌈 **Solid Color Background**: Add any solid color as background with a color picker
 - 🖼️ **Custom Image Background**: Upload and use custom images as backgrounds
 - ⬇️ **Download Options**: Download both transparent and final images
@@ -102,16 +103,24 @@ gunicorn -w 4 -b 0.0.0.0:5000 app:app
 2. Wait for the background to be removed automatically
 3. Download the transparent image using "Download Transparent" button
 
+### Cropping Images
+
+1. After background removal, click "🖼️ Crop Image" button
+2. In the crop modal, click and drag to select the area you want to keep
+3. Use "Reset Selection" to start over if needed
+4. Click "Apply Crop" to crop the image
+5. The processed image will be updated with the cropped version
+
 ### Adding Solid Color Background
 
-1. After background removal, click on "Solid Color" tab
+1. After background removal (and optional cropping), click on "Solid Color" tab
 2. Choose a color using the color picker or select from preset colors
 3. Click "Apply Color Background"
 4. Download the final image
 
 ### Adding Image Background
 
-1. After background removal, click on "Image" tab
+1. After background removal (and optional cropping), click on "Image" tab
 2. Click "Choose Background Image" and select an image
 3. Click "Apply Image Background"
 4. Download the final image
