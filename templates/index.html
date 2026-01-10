@@ -50,6 +50,12 @@
                     </div>
                 </div>
 
+                <!-- Crop Options -->
+                <div class="crop-options">
+                    <h3>Crop Image (Optional)</h3>
+                    <button class="btn btn-primary" id="cropBtn">🖼️ Crop Image</button>
+                </div>
+
                 <!-- Background Options -->
                 <div class="background-options">
                     <h3>Add Background</h3>
@@ -125,6 +131,29 @@
                     <button class="btn btn-secondary" onclick="resetApp()">Try Again</button>
                 </div>
             </section>
+
+            <!-- Crop Modal -->
+            <div class="crop-modal hidden" id="cropModal">
+                <div class="crop-modal-content">
+                    <div class="crop-modal-header">
+                        <h3>Crop Image</h3>
+                        <button class="close-btn" id="closeCropBtn">&times;</button>
+                    </div>
+                    <div class="crop-container">
+                        <div class="crop-canvas-wrapper">
+                            <canvas id="cropCanvas"></canvas>
+                        </div>
+                        <div class="crop-controls">
+                            <p class="crop-instructions">Click and drag to select the area to crop</p>
+                            <button class="btn btn-secondary" id="resetCropBtn">Reset Selection</button>
+                        </div>
+                    </div>
+                    <div class="crop-modal-footer">
+                        <button class="btn btn-secondary" id="cancelCropBtn">Cancel</button>
+                        <button class="btn btn-primary" id="applyCropBtn">Apply Crop</button>
+                    </div>
+                </div>
+            </div>
         </main>
 
         <footer>
