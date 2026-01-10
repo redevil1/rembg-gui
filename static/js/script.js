@@ -11,7 +11,8 @@ let cropState = {
     startY: 0,
     endX: 0,
     endY: 0,
-    scale: 1
+    scale: 1,
+    isFinalImage: false
 };
 
 // DOM Elements
@@ -31,6 +32,7 @@ const errorMessage = document.getElementById('errorMessage');
 const cropModal = document.getElementById('cropModal');
 const cropCanvas = document.getElementById('cropCanvas');
 const cropBtn = document.getElementById('cropBtn');
+const cropFinalBtn = document.getElementById('cropFinalBtn');
 const closeCropBtn = document.getElementById('closeCropBtn');
 const cancelCropBtn = document.getElementById('cancelCropBtn');
 const applyCropBtn = document.getElementById('applyCropBtn');
@@ -102,7 +104,8 @@ function setupEventListeners() {
     downloadTransparentBtn.addEventListener('click', downloadTransparentImage);
     
     // Crop buttons
-    cropBtn.addEventListener('click', openCropModal);
+    cropBtn.addEventListener('click', () => openCropModal(false));
+    cropFinalBtn.addEventListener('click', () => openCropModal(true));
     closeCropBtn.addEventListener('click', closeCropModal);
     cancelCropBtn.addEventListener('click', closeCropModal);
     applyCropBtn.addEventListener('click', applyCrop);
@@ -379,11 +382,17 @@ function downloadTransparentImage() {
 }
 
 // Open crop modal
-function openCropModal() {
-    if (!processedImageData) {
+function openCropModal(useFinalImage = false) {
+    // Determine which image to crop
+    const imageToCheck = useFinalImage ? finalImage.src : processedImageData;
+    
+    if (!imageToCheck) {
         showError('No image to crop. Please upload and process an image first.');
         return;
     }
+    
+    // Store whether we're cropping the final image
+    cropState.isFinalImage = useFinalImage;
     
     cropModal.classList.remove('hidden');
     
@@ -417,7 +426,7 @@ function openCropModal() {
         cropCanvas.addEventListener('mousemove', updateCrop);
         cropCanvas.addEventListener('mouseup', endCrop);
     };
-    img.src = processedImageData;
+    img.src = imageToCheck;
 }
 
 // Start crop selection
@@ -508,7 +517,8 @@ function closeCropModal() {
         startY: 0,
         endX: 0,
         endY: 0,
-        scale: 1
+        scale: 1,
+        isFinalImage: false
     };
 }
 
@@ -521,6 +531,7 @@ async function applyCrop() {
     
     try {
         showSection('processing', 'Cropping image...');
+        const wasFinalImage = cropState.isFinalImage;
         closeCropModal();
         
         // Calculate actual crop coordinates (scale back to original size)
@@ -529,8 +540,8 @@ async function applyCrop() {
         const width = Math.abs(cropState.endX - cropState.startX) / cropState.scale;
         const height = Math.abs(cropState.endY - cropState.startY) / cropState.scale;
         
-        // Validate crop dimensions
-        if (width < 10 || height < 10) {
+        // Validate crop dimensions (minimum 1 pixel to allow any valid selection)
+        if (width < 1 || height < 1) {
             showError('Crop area is too small. Please select a larger area.');
             return;
         }
@@ -551,12 +562,19 @@ async function applyCrop() {
         // Convert to base64
         const croppedImageData = croppedCanvas.toDataURL('image/png');
         
-        // Update the processed image with cropped version
-        processedImageData = croppedImageData;
-        processedImage.src = processedImageData;
-        
-        // Hide final result if it was shown, as we've modified the image
-        finalResult.classList.add('hidden');
+        if (wasFinalImage) {
+            // If cropping the final image, update the final image
+            finalImage.src = croppedImageData;
+            // Also update processed image to the cropped final for consistency
+            processedImageData = croppedImageData;
+            processedImage.src = processedImageData;
+        } else {
+            // If cropping the processed image, update it
+            processedImageData = croppedImageData;
+            processedImage.src = processedImageData;
+            // Hide final result if it was shown, as we've modified the image
+            finalResult.classList.add('hidden');
+        }
         
         showSection('result');
     } catch (error) {

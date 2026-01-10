@@ -359,7 +359,15 @@ main {
 
 .final-result .image-wrapper {
     max-width: 600px;
-    margin: 0 auto;
+    margin: 0 auto 20px;
+}
+
+.final-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 /* Action Buttons */
